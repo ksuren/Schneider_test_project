@@ -44,5 +44,18 @@ General Guidelines
 
 
 
+Scripting from Surendra:
+--------------------------
+Tools Used: Seetest,VB
+
+Scenario: 
+	1. Login to the app with the given credentials
+	2. Read the data from about and logout the app
+
+Note: I didn't consider any negative flows wher user fails to login or failed to do graceful logout.
+
+
+
+
 
 
