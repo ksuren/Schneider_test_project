@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><test_report>
+<info>
+<test_info>
+<test_status>OK</test_status>
+<time_zone>Eastern Standard Time</time_zone>
+<run_started>Wed, 22 Jun 2016 00:20:40</run_started>
+<total_time>68.0</total_time>
+<project>C:\Users\Usha\workspace\project2</project>
+<user>Usha</user>
+<machine_name>LAPTOP-ESHD7PB3</machine_name>
+</test_info>
+<device_info>
+<device_name>Android SDK built for x86</device_name>
+<manufacture>unknown</manufacture>
+<model>Android SDK built for x86</model>
+<os>Android</os>
+<serial_number>emulator-5554</serial_number>
+<version>6.0</version>
+<screen_size>1440x2560</screen_size>
+</device_info>
+</info>
+<reports>
+<report>
+<text>C:\Users\Usha\seetest-reports\test8</text>
+<line>Start test Untitled</line>
+<status>true</status>
+</report>
+<report>
+<text>Device Information&lt;br&gt;
+Name: Android SDK built for x86&lt;br&gt;
+S/N: emulator-5554&lt;br&gt;
+OS: Android&lt;br&gt;
+Manufacture: unknown&lt;br&gt;
+Model: Android SDK built for x86&lt;br&gt;
+Version: 6.0&lt;br&gt;
+Screen size: 1440x2560&lt;br&gt;
+Connected to: 127.0.0.1:5037&lt;br&gt;
+</text>
+<line>Set device to: adb:Android SDK built for x86</line>
+<status>true</status>
+</report>
+<report>
+<line>Launch native activity / URL com.schneiderelectric.qatest/.MainActivity</line>
+<status>true</status>
+</report>
+<report>
+<text>Found: true</text>
+<line>Wait for 'xpath=//*[@id='submit' and @text=' Login ' and @hidden='false' and @onScreen='true']' in zone WEB, timeout: 10000</line>
+<status>true</status>
+</report>
+<report>
+<line>Send text demo@demo.com to element WEB:xpath=//*[@id='username' and @name='email' and @hidden='false' and @onScreen='true'][0]</line>
+<status>true</status>
+</report>
+<report>
+<line>Send text demo to element WEB:xpath=//*[@id='password' and @name='password' and @hidden='false' and @onScreen='true'][0]</line>
+<status>true</status>
+</report>
+<report>
+<line>Click 'xpath=//*[@id='submit' and @text=' Login ' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1</line>
+<status>true</status>
+</report>
+<report>
+<text>Found: true</text>
+<line>Wait for 'xpath=//*[@nodeName='H3' and @text=' Welcome home! ' and @hidden='false' and @onScreen='true']' in zone WEB, timeout: 10000</line>
+<status>true</status>
+</report>
+<report>
+<line>Click 'xpath=//*[@nodeName='SPAN' and @css='SPAN.left-buttons' and @class='left-buttons' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1</line>
+<status>true</status>
+</report>
+<report>
+<line>Click 'xpath=//*[@nodeName='A' and @text='  About  ' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1</line>
+<status>true</status>
+</report>
+<report>
+<text>APP-ABCDEFGHIJ</text>
+<line>Get text from element WEB:xpath=//*[@nodeName='DIV' and @id='refLabel' and @hidden='false' and @onScreen='true'][0]</line>
+<status>true</status>
+</report>
+<report>
+<text>12345-67890-12</text>
+<line>Get text from element WEB:xpath=//*[@nodeName='DIV' and @id='serialLabel' and @hidden='false' and @onScreen='true'][0]</line>
+<status>true</status>
+</report>
+<report>
+<line>Click 'xpath=//*[@nodeName='SPAN' and contains(@class,'button-clear button-large') and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1</line>
+<status>true</status>
+</report>
+<report>
+<imageFile>0.PNG</imageFile>
+<line>End Test</line>
+<status>true</status>
+</report>
+</reports>
+</test_report>

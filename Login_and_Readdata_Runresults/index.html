@@ -1,0 +1,3079 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+		<title>Untitled</title>
+
+		<link rel="shortcut icon" href="resources/images/favicon_auto.ico">
+
+		<script type="text/javascript" src='resources/jquery-2.1.0.min.js'></script>
+		<!--[if lt IE 9]>
+			<script type="text/javascript" src='resources/jquery-1.11.1.min.js'></script>
+		<![endif]-->
+		<script type='text/javascript' src='resources/reports.js'></script>
+		<script type="text/javascript" src='resources/js/moment.min.js'></script>
+		<script type="text/javascript" src='resources/js/chart_v2.min.js'></script>
+		<script type="text/javascript" src="resources/js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css">
+
+		<style type="text/css">
+
+		* {
+			font-family: 'Segoe UI',Tahoma,Helvetica,Sans-Serif;
+		}
+
+		a,
+		a:focus,
+		a:active,
+		a:hover{
+			color: black;
+			text-decoration: none;
+		}
+
+		.navbar{
+			position: fixed;
+			margin-bottom: 0;
+			line-height: 60px;
+			height: 59px;
+			width: 100%;
+			border-radius: 0;
+		}
+
+		.navbar h3{
+			float: left;
+			line-height: 16px;
+			font-size: 22px;
+		}
+
+		.navbar .logo{
+			float: right;
+			background-image: url(resources/images/logo.png);
+			width: 100px;
+			height: 30px;
+			background-repeat: no-repeat;
+			background-size: contain;
+			margin: 15px auto;
+		}
+
+		.navbar .logomf{
+			float: right;
+			background-image: url(resources/images/mf_logo.jpg);
+			width: 100px;
+			height: 30px;
+			background-repeat: no-repeat;
+			background-size: contain;
+			margin: 15px auto;
+		}
+
+		.nav-tabs {
+			border-bottom: 1px solid rgba(221, 221, 221, 0.5);
+		}
+
+		.body-content{
+			position: fixed;
+			width: 100%;
+			height: calc(100% - 60px);
+			top: 60px;
+		}
+
+		.left-panel{
+			overflow-y: auto;
+			width: 20%;
+			padding: 0;
+			margin: 0;
+			height: 100%;
+		}
+
+		.left-panel .list-group-item.selected{
+			background-color: rgba(100,100,100,0.1);
+		}
+
+		.left-panel .list-group-item:hover {
+			background-color: rgba(100,100,100,0.1);
+		}
+
+		.left-panel .badge{
+			font-size: 10px;
+			float: right;
+		}
+
+		.left-panel .glyphicon-folder:before {
+  			content: "\e118";
+		}
+
+		.left-panel .collapsed .glyphicon-folder:before {
+  			content: "\e117" !important;
+		}
+
+		.left-panel .badge.success{
+			background-color: rgba(20, 160, 20, 0.8);
+		}
+
+		.left-panel .badge.failed{
+			background-color: rgba(200, 10, 10, 0.8);
+		}
+
+		.list-group-item{
+			border: none;
+			font-size: 14px;
+			display: list-item;
+			cursor: pointer;
+			border-radius: 0px !important;
+			margin-bottom: 0px;
+			padding: 14px 15px !important;
+			border-bottom: 1px solid #eee;
+		}
+
+		.list-group-item.collapse:not(.in){
+			display: none;
+		}
+
+		.left-panel ul > li:nth-child(1) .txt{
+  			font-weight: 600;
+		}
+
+		.list-group-item div:not(.glyphicon) {
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		.list-group-item > span {
+			float: left;
+		}
+
+		.list-group-item .txt{
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+			max-width: calc(100% - 30px);
+		}
+
+		#vertical-divider{
+			position: fixed;
+			border-right: 1px solid rgba(100,100,100,0.2);
+			width: 1px;
+			height: calc(100% - 60px);
+			left: 20%;
+			top: 60px;
+			z-index: 10;
+			cursor: col-resize;
+			cursor: -webkit-grab;
+		}
+
+		#vertical-divider:hover {
+			border: 1px dashed rgba(100,100,100,0.5);
+		}
+
+		#vertical-divider:active {
+  			cursor: -webkit-grabbing;
+		}
+
+		.right-panel{
+			position: fixed;
+			width: 80%;
+			left: 20%;
+			height: calc(100% - 60px);
+			top: 60px;
+		}
+
+		.right-panel .results{
+			position: fixed;
+			height: calc(100% - 60px);
+			top: 60px;
+			width: 80%;
+			overflow-y: auto;
+			padding: 0 20px;
+			margin: 0;
+			display: none;
+		}
+
+		.right-panel .nav li {
+			font-size: 15px;
+			padding: 10px 20px;
+			cursor: pointer;
+		}
+
+		.right-panel .nav li.selected {
+			background: rgba(100,100,100,0.1);
+		}
+
+		.right-panel .results.selected{
+			display: block;
+		}
+
+		.right-panel .nav-tabs{
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+
+		.right-panel .alert .glyphicon,
+		.right-panel .panel .glyphicon{
+			margin-right: 10px;
+		}
+
+		.right-panel .two-screenshots .panel {
+			width: 49%;
+			float: left;
+		}
+
+		.right-panel .two-screenshots .panel:first-child{
+			margin-right: 2%;
+		}
+
+		.right-panel .panel .table{
+			margin: 0;
+		}
+
+		.right-panel .panel .table td{
+			border: none;
+			width: 50%;
+		}
+		
+		.table.t  td{
+			width:33% !important;
+		}
+		
+		.right-panel .panel .table tr:not(:first-child){
+			border-top: 1px solid #ddd;
+		}
+
+		.right-panel .results:not(:first-child) .page-header{
+			margin: 20px 0;
+		}
+
+		.right-panel .screenshot img{
+			max-width: 100%;
+			display: block;
+  			margin-right: auto;
+  			margin-left: auto;
+		}
+
+		.right-panel .video-wrap{
+			background-color: black;
+		}
+
+		.right-panel .video-wrap video{
+			height:600px;
+
+		}
+
+		.popover-title {
+			text-overflow: ellipsis;
+			overflow: hidden;
+		}
+
+		video:-webkit-full-screen	{ width: 100% ; height: 100% ; max-height: none;}
+		video:-moz-full-screen		{ width: 100% ; height: 100% ; max-height: none;}
+		video:-ms-full-screen		{ width: 100% ; height: 100% ; max-height: none;}
+		video:-o-full-screen		{ width: 100% ; height: 100% ; max-height: none;}
+		video:full-screen			{ width: 100% ; height: 100% ; max-height: none;}
+
+		#noscript{
+			position: fixed;
+			z-index: 10;
+			bottom: 10px;
+			right: 30px;
+		}
+
+		#monitoring-graph-cpu-container{
+            width: 48%;
+            float: left;
+        }
+
+        #monitoring-graph-memory-container{
+            width: 48%;
+            float: right;
+        }
+
+		</style>
+
+	</head>
+	<body>
+		<noscript>
+			<div id='noscript' class='alert alert-danger'>
+				Javascript was not detected. Please enable Javascript in this page to access the data in this report.
+			</div>
+		</noscript>
+
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<h3>Untitled</h3>
+							<a href='http://www.experitest.com' class='logo' target='_BLANK'></a>
+						</div>
+		</nav>
+
+		<div class='body-content'>
+
+			<div class='left-panel'>
+				<ul id='report-bar-ul' class='list-group'>
+
+					<li class='list-group-item selected' title="Test Execution Summary" data-step-counter="0">
+						<span class='txt'>Test Execution Summary</span>
+						<div class='badge'>
+							<span class='glyphicon glyphicon-th-list'></span>
+						</div>
+					</li>
+
+										
+													<li class='list-group-item' title="Start test Untitled" data-step-counter="1"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>1</span>
+									<span> Start test Untitled</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Set device to: adb:Android SDK built for x86" data-step-counter="2"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>2</span>
+									<span> Set device to: adb:Android SDK built for x86</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Launch native activity / URL com.schneiderelectric.qatest/.MainActivity" data-step-counter="3"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>3</span>
+									<span> Launch native activity / URL com.schneiderelectric.qatest/.MainActivity</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Wait for 'xpath=//*[@id='submit' and @text=' Login ' and @hidden='false' and @onScreen='true']' in zone WEB, timeout: 10000" data-step-counter="4"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>4</span>
+									<span> Wait for 'xpath=//*[@id='submit' and @text=' Login ' and @hidden='false' and @onScreen='true']' in zone WEB, timeout: 10000</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Send text demo@demo.com to element WEB:xpath=//*[@id='username' and @name='email' and @hidden='false' and @onScreen='true'][0]" data-step-counter="5"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>5</span>
+									<span> Send text demo@demo.com to element WEB:xpath=//*[@id='username' and @name='email' and @hidden='false' and @onScreen='true'][0]</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Send text demo to element WEB:xpath=//*[@id='password' and @name='password' and @hidden='false' and @onScreen='true'][0]" data-step-counter="6"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>6</span>
+									<span> Send text demo to element WEB:xpath=//*[@id='password' and @name='password' and @hidden='false' and @onScreen='true'][0]</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Click 'xpath=//*[@id='submit' and @text=' Login ' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1" data-step-counter="7"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>7</span>
+									<span> Click 'xpath=//*[@id='submit' and @text=' Login ' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Wait for 'xpath=//*[@nodeName='H3' and @text=' Welcome home! ' and @hidden='false' and @onScreen='true']' in zone WEB, timeout: 10000" data-step-counter="8"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>8</span>
+									<span> Wait for 'xpath=//*[@nodeName='H3' and @text=' Welcome home! ' and @hidden='false' and @onScreen='true']' in zone WEB, timeout: 10000</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Click 'xpath=//*[@nodeName='SPAN' and @css='SPAN.left-buttons' and @class='left-buttons' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1" data-step-counter="9"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>9</span>
+									<span> Click 'xpath=//*[@nodeName='SPAN' and @css='SPAN.left-buttons' and @class='left-buttons' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Click 'xpath=//*[@nodeName='A' and @text='  About  ' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1" data-step-counter="10"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>10</span>
+									<span> Click 'xpath=//*[@nodeName='A' and @text='  About  ' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Get text from element WEB:xpath=//*[@nodeName='DIV' and @id='refLabel' and @hidden='false' and @onScreen='true'][0]" data-step-counter="11"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>11</span>
+									<span> Get text from element WEB:xpath=//*[@nodeName='DIV' and @id='refLabel' and @hidden='false' and @onScreen='true'][0]</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Get text from element WEB:xpath=//*[@nodeName='DIV' and @id='serialLabel' and @hidden='false' and @onScreen='true'][0]" data-step-counter="12"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>12</span>
+									<span> Get text from element WEB:xpath=//*[@nodeName='DIV' and @id='serialLabel' and @hidden='false' and @onScreen='true'][0]</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Click 'xpath=//*[@nodeName='SPAN' and contains(@class,'button-clear button-large') and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1" data-step-counter="13"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>13</span>
+									<span> Click 'xpath=//*[@nodeName='SPAN' and contains(@class,'button-clear button-large') and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="End Test" data-step-counter="14"
+																data-content="<img src='images/0.PNG' alt='Falied to retrieve image.' style='max-height:50px;display: block; margin-right: auto; margin-left: auto;'></img>"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>14</span>
+									<span> End Test</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+									</ul>
+				<div id="vertical-divider"></div>
+			</div>
+
+			<div class='right-panel'>
+
+				
+				<div class='results' style="display:block;" data-step-counter="0">
+					<h3 class="page-header">
+						Test Execution Summary
+					</h3>
+
+										<div class="alert alert-success" role="alert">
+						<span class='glyphicon glyphicon-ok'></span>Passed
+					</div>
+					
+					<div class='panel panel-default'>
+						<div class='panel-heading'>Execution Information</div>
+						<div class='panel-body'>
+							<table class='table'>
+								<tbody>
+									<tr>
+										<td>Time Zone</td>
+										<td>Eastern Standard Time</td>
+									</tr>
+									<tr>
+										<td>Run Started</td>
+										<td>Wed, 22 Jun 2016 00:20:40</td>
+									</tr>
+									<tr>
+										<td>Total Time</td>
+										<td>68.0 Seconds</td>
+									</tr>
+									<tr>
+										<td>Project Path</td>
+										<td>C:\Users\Usha\workspace\project2</td>
+									</tr>
+									<tr>
+										<td>User</td>
+										<td>Usha</td>
+									</tr>
+		                            <tr>
+		                                <td>Machine Name</td>
+		                                <td>LAPTOP-ESHD7PB3</td>
+		                            </tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					
+					
+					<div class='panel panel-default'>
+						<div class='panel-heading'>Device Information <small>(Android SDK built for x86)</small></div>
+						<div class='panel-body'>
+							<table class='table'>
+								<tbody>
+									<tr>
+										<td>Name</td>
+										<td>Android SDK built for x86</td>
+									</tr>
+									<tr>
+										<td>OS</td>
+										<td>Android</td>
+									</tr>
+									<tr>
+										<td>Model</td>
+										<td>Android SDK built for x86</td>
+									</tr>
+									<tr>
+										<td>Manufacturer</td>
+										<td>unknown</td>
+									</tr>
+									<tr>
+										<td>Version</td>
+										<td>6.0</td>
+									</tr>
+									<tr>
+										<td>Screen Size</td>
+										<td>1440x2560</td>
+									</tr>
+									<tr>
+										<td>S/N</td>
+										<td>emulator-5554</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					
+   					
+					<div class='panel panel-default'>
+                        <div class='panel-heading'>Device Monitoring Vitals <small>(Android SDK built for x86)</small>
+                        <a href="./monitor.csv" style="color: #337AB7 !important; text-decoration: underline !important;">Link to CSV file</a>
+                        </div>
+                        <div class='panel-body'>
+                            <div id='monitoring-graph-cpu-container'>
+                                <canvas id="monitoringCpuGraph"></canvas>
+                            </div>
+                            <div id='monitoring-graph-memory-container'>
+                                <canvas id="monitoringMemoryGraph"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <script type="text/javascript">
+
+                    $(document).ready(function(){
+
+                        var cpuLineData = {
+                            labels: [
+                                                                    '22/06/2016 00:20:38',
+                                                                    '22/06/2016 00:20:40',
+                                                                    '22/06/2016 00:20:42',
+                                                                    '22/06/2016 00:20:43',
+                                                                    '22/06/2016 00:20:45',
+                                                                    '22/06/2016 00:20:46',
+                                                                    '22/06/2016 00:20:49',
+                                                                    '22/06/2016 00:20:51',
+                                                                    '22/06/2016 00:20:52',
+                                                                    '22/06/2016 00:20:55',
+                                                                    '22/06/2016 00:20:58',
+                                                                    '22/06/2016 00:20:59',
+                                                                    '22/06/2016 00:21:00',
+                                                                    '22/06/2016 00:21:02',
+                                                                    '22/06/2016 00:21:04',
+                                                                    '22/06/2016 00:21:06',
+                                                                    '22/06/2016 00:21:08',
+                                                                    '22/06/2016 00:21:10',
+                                                                    '22/06/2016 00:21:13',
+                                                                    '22/06/2016 00:21:14',
+                                                                    '22/06/2016 00:21:16',
+                                                                    '22/06/2016 00:21:18',
+                                                                    '22/06/2016 00:21:19',
+                                                                    '22/06/2016 00:21:20',
+                                                                    '22/06/2016 00:21:21',
+                                                                    '22/06/2016 00:21:23',
+                                                                    '22/06/2016 00:21:24',
+                                                                    '22/06/2016 00:21:25',
+                                                                    '22/06/2016 00:21:26',
+                                                                    '22/06/2016 00:21:28',
+                                                                    '22/06/2016 00:21:29',
+                                                                    '22/06/2016 00:21:31',
+                                                                    '22/06/2016 00:21:32',
+                                                                    '22/06/2016 00:21:33',
+                                                                    '22/06/2016 00:21:34',
+                                                                    '22/06/2016 00:21:36',
+                                                                    '22/06/2016 00:21:37',
+                                                                    '22/06/2016 00:21:38',
+                                                                    '22/06/2016 00:21:40',
+                                                                    '22/06/2016 00:21:42',
+                                                                    '22/06/2016 00:21:45',
+                                                                    '22/06/2016 00:21:46',
+                                                                    '22/06/2016 00:21:48',
+                                                            ],
+                            datasets: [
+                                {
+                                    label: "CPU usage over time",
+                                    fill: false,
+                                    lineTension: 0.1,
+                                    backgroundColor: "rgba(91,191,70,0.4)",
+                                    borderColor: "rgba(91,191,70,1)",
+                                    borderCapStyle: 'butt',
+                                    borderDash: [],
+                                    borderDashOffset: 0.0,
+                                    borderJoinStyle: 'miter',
+                                    pointBorderColor: "rgba(91,191,70,1)",
+                                    pointBackgroundColor: "#fff",
+                                    pointBorderWidth: 1,
+                                    pointHoverRadius: 5,
+                                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                                    pointHoverBorderWidth: 2,
+                                    pointRadius: 2,
+                                    pointHitRadius: 10,
+                                    data: [
+                                                                                    '14.0',
+                                                                                    '14.0',
+                                                                                    '26.0',
+                                                                                    '26.0',
+                                                                                    '26.0',
+                                                                                    '26.0',
+                                                                                    '74.0',
+                                                                                    '74.0',
+                                                                                    '74.0',
+                                                                                    '98.0',
+                                                                                    '98.0',
+                                                                                    '98.0',
+                                                                                    '98.0',
+                                                                                    '95.0',
+                                                                                    '95.0',
+                                                                                    '95.0',
+                                                                                    '99.0',
+                                                                                    '99.0',
+                                                                                    '99.0',
+                                                                                    '100.0',
+                                                                                    '100.0',
+                                                                                    '100.0',
+                                                                                    '100.0',
+                                                                                    '98.0',
+                                                                                    '98.0',
+                                                                                    '98.0',
+                                                                                    '98.0',
+                                                                                    '99.0',
+                                                                                    '99.0',
+                                                                                    '99.0',
+                                                                                    '99.0',
+                                                                                    '99.0',
+                                                                                    '99.0',
+                                                                                    '99.0',
+                                                                                    '99.0',
+                                                                                    '99.0',
+                                                                                    '99.0',
+                                                                                    '99.0',
+                                                                                    '97.0',
+                                                                                    '97.0',
+                                                                                    '97.0',
+                                                                                    '99.0',
+                                                                                    '99.0',
+                                                                            ],
+                                }
+                            ]
+                        };
+
+                        var cpuLineOptions = {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            animation: false,
+                            scales: {
+                                xAxes: [{
+                                    type: "time",
+                                    time: {
+                                        format: 'DD/MM/YYYY HH:mm:ss',
+                                        tooltipFormat: 'll HH:mm:ss'
+                                    },
+                                    display: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Time'
+                                    }
+                                }, ],
+                                yAxes: [{
+                                    display: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: '%'
+                                    }
+                                }]
+                            }
+                        };
+
+                        var memoryLineData = {
+                            labels: [
+                                                                    '22/06/2016 00:20:38',
+                                                                    '22/06/2016 00:20:40',
+                                                                    '22/06/2016 00:20:42',
+                                                                    '22/06/2016 00:20:43',
+                                                                    '22/06/2016 00:20:45',
+                                                                    '22/06/2016 00:20:46',
+                                                                    '22/06/2016 00:20:49',
+                                                                    '22/06/2016 00:20:51',
+                                                                    '22/06/2016 00:20:52',
+                                                                    '22/06/2016 00:20:55',
+                                                                    '22/06/2016 00:20:58',
+                                                                    '22/06/2016 00:20:59',
+                                                                    '22/06/2016 00:21:00',
+                                                                    '22/06/2016 00:21:02',
+                                                                    '22/06/2016 00:21:04',
+                                                                    '22/06/2016 00:21:06',
+                                                                    '22/06/2016 00:21:08',
+                                                                    '22/06/2016 00:21:10',
+                                                                    '22/06/2016 00:21:13',
+                                                                    '22/06/2016 00:21:14',
+                                                                    '22/06/2016 00:21:16',
+                                                                    '22/06/2016 00:21:18',
+                                                                    '22/06/2016 00:21:19',
+                                                                    '22/06/2016 00:21:20',
+                                                                    '22/06/2016 00:21:21',
+                                                                    '22/06/2016 00:21:23',
+                                                                    '22/06/2016 00:21:24',
+                                                                    '22/06/2016 00:21:25',
+                                                                    '22/06/2016 00:21:26',
+                                                                    '22/06/2016 00:21:28',
+                                                                    '22/06/2016 00:21:29',
+                                                                    '22/06/2016 00:21:31',
+                                                                    '22/06/2016 00:21:32',
+                                                                    '22/06/2016 00:21:33',
+                                                                    '22/06/2016 00:21:34',
+                                                                    '22/06/2016 00:21:36',
+                                                                    '22/06/2016 00:21:37',
+                                                                    '22/06/2016 00:21:38',
+                                                                    '22/06/2016 00:21:40',
+                                                                    '22/06/2016 00:21:42',
+                                                                    '22/06/2016 00:21:45',
+                                                                    '22/06/2016 00:21:46',
+                                                                    '22/06/2016 00:21:48',
+                                                            ],
+                            datasets: [
+                                {
+                                    label: "Memory usage over time",
+                                    fill: false,
+                                    lineTension: 0.1,
+                                    backgroundColor: "rgba(247,70,74,0.4)",
+                                    borderColor: "rgba(247,70,74,1)",
+                                    borderCapStyle: 'butt',
+                                    borderDash: [],
+                                    borderDashOffset: 0.0,
+                                    borderJoinStyle: 'miter',
+                                    pointBorderColor: "rgba(247,70,74,1)",
+                                    pointBackgroundColor: "#fff",
+                                    pointBorderWidth: 1,
+                                    pointHoverRadius: 5,
+                                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                                    pointHoverBorderWidth: 2,
+                                    pointRadius: 2,
+                                    pointHitRadius: 10,
+                                    data: [
+                                                                                    '604.0',
+                                                                                    '618.0',
+                                                                                    '619.0',
+                                                                                    '439.0',
+                                                                                    '441.0',
+                                                                                    '441.0',
+                                                                                    '441.0',
+                                                                                    '448.0',
+                                                                                    '448.0',
+                                                                                    '449.0',
+                                                                                    '449.0',
+                                                                                    '458.0',
+                                                                                    '458.0',
+                                                                                    '446.0',
+                                                                                    '446.0',
+                                                                                    '505.0',
+                                                                                    '512.0',
+                                                                                    '512.0',
+                                                                                    '539.0',
+                                                                                    '557.0',
+                                                                                    '577.0',
+                                                                                    '577.0',
+                                                                                    '577.0',
+                                                                                    '574.0',
+                                                                                    '595.0',
+                                                                                    '595.0',
+                                                                                    '601.0',
+                                                                                    '632.0',
+                                                                                    '632.0',
+                                                                                    '635.0',
+                                                                                    '635.0',
+                                                                                    '613.0',
+                                                                                    '613.0',
+                                                                                    '613.0',
+                                                                                    '592.0',
+                                                                                    '592.0',
+                                                                                    '603.0',
+                                                                                    '603.0',
+                                                                                    '614.0',
+                                                                                    '639.0',
+                                                                                    '639.0',
+                                                                                    '609.0',
+                                                                                    '639.0',
+                                                                            ],
+                                }
+                            ]
+                        };
+
+                        var memoryLineOptions = {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            animation: false,
+                            scales: {
+                                xAxes: [{
+                                    type: "time",
+                                    time: {
+                                        format: 'DD/MM/YYYY HH:mm:ss',
+                                        tooltipFormat: 'll HH:mm:ss'
+                                    },
+                                    display: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Time'
+                                    }
+                                }, ],
+                                yAxes: [{
+                                    display: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'MB'
+                                    }
+                                }]
+                            }
+                        };
+
+                        var cpuCtx = document.getElementById("monitoringCpuGraph").getContext("2d");;
+
+                        var cpuLineChart = Chart.Line(cpuCtx, {
+                            data: cpuLineData,
+                            options: cpuLineOptions
+                        });
+
+                        var memoryCtx = document.getElementById("monitoringMemoryGraph").getContext("2d");;
+
+                        var memoryLineChart = Chart.Line(memoryCtx, {
+                            data: memoryLineData,
+                            options: memoryLineOptions
+                        });
+
+
+                    });
+
+                    </script>
+
+
+					<!--
+										<div class='panel panel-default'>
+						<div class='panel-heading'>Transactions Information</div>
+						<div class='panel-body'>
+							<table class='table t'>
+								<thead>
+									<th>Step #</th>
+									<th>Name</th>
+									<th>Duration (seconds)</th>
+								</thead>
+								<tbody>
+																	</tbody>
+							</table>
+						</div>
+					</div>
+										-->
+				</div>
+
+				
+				
+					
+					<div class='results' data-step-counter="1">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Start test Untitled</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+								<div class='panel-body'>
+									<div>Total Time: 0.001 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														<div class="panel panel-default">
+																	<div class="panel-heading">Result Data</div>
+									<div class="panel-body">C:\Users\Usha\seetest-reports\test8</div>
+															</div>
+														
+							
+							
+								
+								
+								
+												</div>
+
+												<div class='sub-results'>
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>logLine</td>
+													<td>Start test Untitled</td>
+												</tr>
+																																			<tr>
+													<td>clientID</td>
+													<td>clientID:JavaUI:version=9.6:84b3e206-fa9b-4704-83a0-d089a7e17943</td>
+												</tr>
+																																			<tr>
+													<td>dtime</td>
+													<td>00:20:40</td>
+												</tr>
+																																			<tr>
+													<td>found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>port</td>
+													<td>8889</td>
+												</tr>
+																																			<tr>
+													<td>report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>step</td>
+													<td>1</td>
+												</tr>
+																																			<tr>
+													<td>step.index</td>
+													<td>1</td>
+												</tr>
+																																			<tr>
+													<td>time</td>
+													<td>1</td>
+												</tr>
+																																			<tr>
+													<td>text</td>
+													<td>C:\Users\Usha\seetest-reports\test8</td>
+												</tr>
+																																			<tr>
+													<td>time (ms)</td>
+													<td>1</td>
+												</tr>
+																																			<tr>
+													<td>scenarioIndex</td>
+													<td>0</td>
+												</tr>
+																																			<tr>
+													<td>status</td>
+													<td>true</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="2">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Set device to: adb:Android SDK built for x86</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+								<div class='panel-body'>
+									<div>Total Time: 0.018 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														<div class="panel panel-default">
+																	<div class="panel-heading">
+										<button class="btn btn-default glyphicon glyphicon-plus btn-xs pull-left" style="outline:none" id="expand-data-btn-2" onclick="toggleData(2)"></button>
+										Result Data
+									</div>
+									<div class="panel-body" id="collapse-data-2">Device Information . . . </div>
+									<div class="panel-body" id="expand-data-2" style="display:none">Device Information<br>
+Name: Android SDK built for x86<br>
+S/N: emulator-5554<br>
+OS: Android<br>
+Manufacture: unknown<br>
+Model: Android SDK built for x86<br>
+Version: 6.0<br>
+Screen size: 1440x2560<br>
+Connected to: 127.0.0.1:5037<br>
+</div>
+															</div>
+														
+							
+							
+								
+								
+								
+												</div>
+
+												<div class='sub-results'>
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>logLine</td>
+													<td>Set device to: adb:Android SDK built for x86</td>
+												</tr>
+																																			<tr>
+													<td>clientID</td>
+													<td>clientID:JavaUI:version=9.6:84b3e206-fa9b-4704-83a0-d089a7e17943</td>
+												</tr>
+																																			<tr>
+													<td>WinTitle</td>
+													<td>adb:Android SDK built for x86</td>
+												</tr>
+																																			<tr>
+													<td>dtime</td>
+													<td>00:20:40</td>
+												</tr>
+																																			<tr>
+													<td>found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>port</td>
+													<td>8889</td>
+												</tr>
+																																			<tr>
+													<td>report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>step</td>
+													<td>2</td>
+												</tr>
+																																			<tr>
+													<td>step.index</td>
+													<td>2</td>
+												</tr>
+																																			<tr>
+													<td>time</td>
+													<td>18</td>
+												</tr>
+																																			<tr>
+													<td>text</td>
+													<td>Device Information
+Name: Android SDK built for x86
+S/N: emulator-5554
+OS: Android
+Manufacture: unknown
+Model: Android SDK built for x86
+Version: 6.0
+Screen size: 1440x2560
+Connected to: 127.0.0.1:5037
+</td>
+												</tr>
+																																			<tr>
+													<td>time (ms)</td>
+													<td>18</td>
+												</tr>
+																																			<tr>
+													<td>scenarioIndex</td>
+													<td>2</td>
+												</tr>
+																																			<tr>
+													<td>status</td>
+													<td>true</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="3">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Launch native activity / URL com.schneiderelectric.qatest/.MainActivity</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+								<div class='panel-body'>
+									<div>Total Time: 10.838 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														
+							
+							
+								
+								
+								
+												</div>
+
+												<div class='sub-results'>
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>logLine</td>
+													<td>Launch native activity / URL com.schneiderelectric.qatest/.MainActivity</td>
+												</tr>
+																																			<tr>
+													<td>clientID</td>
+													<td>clientID:JavaUI:version=9.6:84b3e206-fa9b-4704-83a0-d089a7e17943</td>
+												</tr>
+																																			<tr>
+													<td>WinTitle</td>
+													<td>adb:Android SDK built for x86</td>
+												</tr>
+																																			<tr>
+													<td>dtime</td>
+													<td>00:20:51</td>
+												</tr>
+																																			<tr>
+													<td>found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>port</td>
+													<td>8889</td>
+												</tr>
+																																			<tr>
+													<td>report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>step</td>
+													<td>3</td>
+												</tr>
+																																			<tr>
+													<td>step.index</td>
+													<td>3</td>
+												</tr>
+																																			<tr>
+													<td>time</td>
+													<td>10838</td>
+												</tr>
+																																			<tr>
+													<td>time (ms)</td>
+													<td>10838</td>
+												</tr>
+																																			<tr>
+													<td>scenarioIndex</td>
+													<td>2</td>
+												</tr>
+																																			<tr>
+													<td>status</td>
+													<td>true</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="4">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Wait for 'xpath=//*[@id='submit' and @text=' Login ' and @hidden='false' and @onScreen='true']' in zone WEB, timeout: 10000</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+								<div class='panel-body'>
+									<div>Total Time: 10.83 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														<div class="panel panel-default">
+																	<div class="panel-heading">Result Data</div>
+									<div class="panel-body">Found: true</div>
+															</div>
+														
+							
+							
+								
+								
+								
+												</div>
+
+												<div class='sub-results'>
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>logLine</td>
+													<td>Wait for 'xpath=//*[@id='submit' and @text=' Login ' and @hidden='false' and @onScreen='true']' in zone WEB, timeout: 10000</td>
+												</tr>
+																																			<tr>
+													<td>bcolor</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>clientID</td>
+													<td>clientID:JavaUI:version=9.6:84b3e206-fa9b-4704-83a0-d089a7e17943</td>
+												</tr>
+																																			<tr>
+													<td>color</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>font.size</td>
+													<td>-1</td>
+												</tr>
+																																			<tr>
+													<td>WinTitle</td>
+													<td>adb:Android SDK built for x86</td>
+												</tr>
+																																			<tr>
+													<td>dtime</td>
+													<td>00:21:02</td>
+												</tr>
+																																			<tr>
+													<td>click</td>
+													<td>719,1165</td>
+												</tr>
+																																			<tr>
+													<td>bcolor.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>found</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>port</td>
+													<td>8889</td>
+												</tr>
+																																			<tr>
+													<td>report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>width</td>
+													<td>1300</td>
+												</tr>
+																																			<tr>
+													<td>step</td>
+													<td>4</td>
+												</tr>
+																																			<tr>
+													<td>step.index</td>
+													<td>4</td>
+												</tr>
+																																			<tr>
+													<td>time</td>
+													<td>10830</td>
+												</tr>
+																																			<tr>
+													<td>text</td>
+													<td>Found: true</td>
+												</tr>
+																																			<tr>
+													<td>position</td>
+													<td>69,1087</td>
+												</tr>
+																																			<tr>
+													<td>time (ms)</td>
+													<td>10830</td>
+												</tr>
+																																			<tr>
+													<td>scenarioIndex</td>
+													<td>3</td>
+												</tr>
+																																			<tr>
+													<td>status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>color.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>height</td>
+													<td>157</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="5">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Send text demo@demo.com to element WEB:xpath=//*[@id='username' and @name='email' and @hidden='false' and @onScreen='true'][0]</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+								<div class='panel-body'>
+									<div>Total Time: 2.371 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														
+							
+							
+								
+								
+								
+												</div>
+
+												<div class='sub-results'>
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>logLine</td>
+													<td>Send text demo@demo.com to element WEB:xpath=//*[@id='username' and @name='email' and @hidden='false' and @onScreen='true'][0]</td>
+												</tr>
+																																			<tr>
+													<td>bcolor</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>clientID</td>
+													<td>clientID:JavaUI:version=9.6:84b3e206-fa9b-4704-83a0-d089a7e17943</td>
+												</tr>
+																																			<tr>
+													<td>color</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>font.size</td>
+													<td>-1</td>
+												</tr>
+																																			<tr>
+													<td>WinTitle</td>
+													<td>adb:Android SDK built for x86</td>
+												</tr>
+																																			<tr>
+													<td>dtime</td>
+													<td>00:21:04</td>
+												</tr>
+																																			<tr>
+													<td>click</td>
+													<td>747,530</td>
+												</tr>
+																																			<tr>
+													<td>bcolor.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>found</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>port</td>
+													<td>8889</td>
+												</tr>
+																																			<tr>
+													<td>report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>width</td>
+													<td>1244</td>
+												</tr>
+																																			<tr>
+													<td>step</td>
+													<td>5</td>
+												</tr>
+																																			<tr>
+													<td>step.index</td>
+													<td>5</td>
+												</tr>
+																																			<tr>
+													<td>time</td>
+													<td>2371</td>
+												</tr>
+																																			<tr>
+													<td>position</td>
+													<td>125,471</td>
+												</tr>
+																																			<tr>
+													<td>time (ms)</td>
+													<td>2371</td>
+												</tr>
+																																			<tr>
+													<td>scenarioIndex</td>
+													<td>4</td>
+												</tr>
+																																			<tr>
+													<td>status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>color.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>height</td>
+													<td>118</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="6">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Send text demo to element WEB:xpath=//*[@id='password' and @name='password' and @hidden='false' and @onScreen='true'][0]</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+								<div class='panel-body'>
+									<div>Total Time: 2.036 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														
+							
+							
+								
+								
+								
+												</div>
+
+												<div class='sub-results'>
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>logLine</td>
+													<td>Send text demo to element WEB:xpath=//*[@id='password' and @name='password' and @hidden='false' and @onScreen='true'][0]</td>
+												</tr>
+																																			<tr>
+													<td>bcolor</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>clientID</td>
+													<td>clientID:JavaUI:version=9.6:84b3e206-fa9b-4704-83a0-d089a7e17943</td>
+												</tr>
+																																			<tr>
+													<td>color</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>font.size</td>
+													<td>-1</td>
+												</tr>
+																																			<tr>
+													<td>WinTitle</td>
+													<td>adb:Android SDK built for x86</td>
+												</tr>
+																																			<tr>
+													<td>dtime</td>
+													<td>00:21:06</td>
+												</tr>
+																																			<tr>
+													<td>click</td>
+													<td>747,740</td>
+												</tr>
+																																			<tr>
+													<td>bcolor.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>found</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>port</td>
+													<td>8889</td>
+												</tr>
+																																			<tr>
+													<td>report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>width</td>
+													<td>1244</td>
+												</tr>
+																																			<tr>
+													<td>step</td>
+													<td>6</td>
+												</tr>
+																																			<tr>
+													<td>step.index</td>
+													<td>6</td>
+												</tr>
+																																			<tr>
+													<td>time</td>
+													<td>2036</td>
+												</tr>
+																																			<tr>
+													<td>position</td>
+													<td>125,681</td>
+												</tr>
+																																			<tr>
+													<td>time (ms)</td>
+													<td>2036</td>
+												</tr>
+																																			<tr>
+													<td>scenarioIndex</td>
+													<td>5</td>
+												</tr>
+																																			<tr>
+													<td>status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>color.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>height</td>
+													<td>118</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="7">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Click 'xpath=//*[@id='submit' and @text=' Login ' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+								<div class='panel-body'>
+									<div>Total Time: 2.077 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														
+							
+							
+								
+								
+								
+												</div>
+
+												<div class='sub-results'>
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>logLine</td>
+													<td>Click 'xpath=//*[@id='submit' and @text=' Login ' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1</td>
+												</tr>
+																																			<tr>
+													<td>bcolor</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>clientID</td>
+													<td>clientID:JavaUI:version=9.6:84b3e206-fa9b-4704-83a0-d089a7e17943</td>
+												</tr>
+																																			<tr>
+													<td>color</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>font.size</td>
+													<td>-1</td>
+												</tr>
+																																			<tr>
+													<td>WinTitle</td>
+													<td>adb:Android SDK built for x86</td>
+												</tr>
+																																			<tr>
+													<td>dtime</td>
+													<td>00:21:08</td>
+												</tr>
+																																			<tr>
+													<td>click</td>
+													<td>719,1165</td>
+												</tr>
+																																			<tr>
+													<td>bcolor.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>port</td>
+													<td>8889</td>
+												</tr>
+																																			<tr>
+													<td>report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>width</td>
+													<td>1300</td>
+												</tr>
+																																			<tr>
+													<td>step</td>
+													<td>7</td>
+												</tr>
+																																			<tr>
+													<td>step.index</td>
+													<td>7</td>
+												</tr>
+																																			<tr>
+													<td>time</td>
+													<td>2077</td>
+												</tr>
+																																			<tr>
+													<td>position</td>
+													<td>69,1087</td>
+												</tr>
+																																			<tr>
+													<td>time (ms)</td>
+													<td>2077</td>
+												</tr>
+																																			<tr>
+													<td>scenarioIndex</td>
+													<td>6</td>
+												</tr>
+																																			<tr>
+													<td>status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>color.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>height</td>
+													<td>157</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="8">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Wait for 'xpath=//*[@nodeName='H3' and @text=' Welcome home! ' and @hidden='false' and @onScreen='true']' in zone WEB, timeout: 10000</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+								<div class='panel-body'>
+									<div>Total Time: 22.304 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														<div class="panel panel-default">
+																	<div class="panel-heading">Result Data</div>
+									<div class="panel-body">Found: true</div>
+															</div>
+														
+							
+							
+								
+								
+								
+												</div>
+
+												<div class='sub-results'>
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>logLine</td>
+													<td>Wait for 'xpath=//*[@nodeName='H3' and @text=' Welcome home! ' and @hidden='false' and @onScreen='true']' in zone WEB, timeout: 10000</td>
+												</tr>
+																																			<tr>
+													<td>bcolor</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>clientID</td>
+													<td>clientID:JavaUI:version=9.6:84b3e206-fa9b-4704-83a0-d089a7e17943</td>
+												</tr>
+																																			<tr>
+													<td>color</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>font.size</td>
+													<td>-1</td>
+												</tr>
+																																			<tr>
+													<td>WinTitle</td>
+													<td>adb:Android SDK built for x86</td>
+												</tr>
+																																			<tr>
+													<td>dtime</td>
+													<td>00:21:31</td>
+												</tr>
+																																			<tr>
+													<td>click</td>
+													<td>719,334</td>
+												</tr>
+																																			<tr>
+													<td>bcolor.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>found</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>port</td>
+													<td>8889</td>
+												</tr>
+																																			<tr>
+													<td>report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>width</td>
+													<td>1342</td>
+												</tr>
+																																			<tr>
+													<td>step</td>
+													<td>8</td>
+												</tr>
+																																			<tr>
+													<td>step.index</td>
+													<td>8</td>
+												</tr>
+																																			<tr>
+													<td>time</td>
+													<td>22304</td>
+												</tr>
+																																			<tr>
+													<td>text</td>
+													<td>Found: true</td>
+												</tr>
+																																			<tr>
+													<td>position</td>
+													<td>48,286</td>
+												</tr>
+																																			<tr>
+													<td>time (ms)</td>
+													<td>22304</td>
+												</tr>
+																																			<tr>
+													<td>scenarioIndex</td>
+													<td>7</td>
+												</tr>
+																																			<tr>
+													<td>status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>color.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>height</td>
+													<td>97</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="9">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Click 'xpath=//*[@nodeName='SPAN' and @css='SPAN.left-buttons' and @class='left-buttons' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+								<div class='panel-body'>
+									<div>Total Time: 1.39 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														
+							
+							
+								
+								
+								
+												</div>
+
+												<div class='sub-results'>
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>logLine</td>
+													<td>Click 'xpath=//*[@nodeName='SPAN' and @css='SPAN.left-buttons' and @class='left-buttons' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1</td>
+												</tr>
+																																			<tr>
+													<td>bcolor</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>clientID</td>
+													<td>clientID:JavaUI:version=9.6:84b3e206-fa9b-4704-83a0-d089a7e17943</td>
+												</tr>
+																																			<tr>
+													<td>color</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>font.size</td>
+													<td>-1</td>
+												</tr>
+																																			<tr>
+													<td>WinTitle</td>
+													<td>adb:Android SDK built for x86</td>
+												</tr>
+																																			<tr>
+													<td>dtime</td>
+													<td>00:21:32</td>
+												</tr>
+																																			<tr>
+													<td>click</td>
+													<td>79,160</td>
+												</tr>
+																																			<tr>
+													<td>bcolor.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>port</td>
+													<td>8889</td>
+												</tr>
+																																			<tr>
+													<td>report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>width</td>
+													<td>125</td>
+												</tr>
+																																			<tr>
+													<td>step</td>
+													<td>9</td>
+												</tr>
+																																			<tr>
+													<td>step.index</td>
+													<td>9</td>
+												</tr>
+																																			<tr>
+													<td>time</td>
+													<td>1390</td>
+												</tr>
+																																			<tr>
+													<td>position</td>
+													<td>17,101</td>
+												</tr>
+																																			<tr>
+													<td>time (ms)</td>
+													<td>1390</td>
+												</tr>
+																																			<tr>
+													<td>scenarioIndex</td>
+													<td>8</td>
+												</tr>
+																																			<tr>
+													<td>status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>color.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>height</td>
+													<td>118</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="10">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Click 'xpath=//*[@nodeName='A' and @text='  About  ' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+								<div class='panel-body'>
+									<div>Total Time: 4.111 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														
+							
+							
+								
+								
+								
+												</div>
+
+												<div class='sub-results'>
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>logLine</td>
+													<td>Click 'xpath=//*[@nodeName='A' and @text='  About  ' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1</td>
+												</tr>
+																																			<tr>
+													<td>bcolor</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>clientID</td>
+													<td>clientID:JavaUI:version=9.6:84b3e206-fa9b-4704-83a0-d089a7e17943</td>
+												</tr>
+																																			<tr>
+													<td>color</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>font.size</td>
+													<td>-1</td>
+												</tr>
+																																			<tr>
+													<td>WinTitle</td>
+													<td>adb:Android SDK built for x86</td>
+												</tr>
+																																			<tr>
+													<td>dtime</td>
+													<td>00:21:36</td>
+												</tr>
+																																			<tr>
+													<td>click</td>
+													<td>472,1068</td>
+												</tr>
+																																			<tr>
+													<td>bcolor.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>port</td>
+													<td>8889</td>
+												</tr>
+																																			<tr>
+													<td>report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>width</td>
+													<td>950</td>
+												</tr>
+																																			<tr>
+													<td>step</td>
+													<td>10</td>
+												</tr>
+																																			<tr>
+													<td>step.index</td>
+													<td>10</td>
+												</tr>
+																																			<tr>
+													<td>time</td>
+													<td>4111</td>
+												</tr>
+																																			<tr>
+													<td>position</td>
+													<td>-3,985</td>
+												</tr>
+																																			<tr>
+													<td>time (ms)</td>
+													<td>4111</td>
+												</tr>
+																																			<tr>
+													<td>scenarioIndex</td>
+													<td>9</td>
+												</tr>
+																																			<tr>
+													<td>status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>color.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>height</td>
+													<td>167</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="11">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Get text from element WEB:xpath=//*[@nodeName='DIV' and @id='refLabel' and @hidden='false' and @onScreen='true'][0]</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+								<div class='panel-body'>
+									<div>Total Time: 4.975 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														<div class="panel panel-default">
+																	<div class="panel-heading">Result Data</div>
+									<div class="panel-body">APP-ABCDEFGHIJ</div>
+															</div>
+														
+							
+							
+								
+								
+								
+												</div>
+
+												<div class='sub-results'>
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>logLine</td>
+													<td>Get text from element WEB:xpath=//*[@nodeName='DIV' and @id='refLabel' and @hidden='false' and @onScreen='true'][0]</td>
+												</tr>
+																																			<tr>
+													<td>bcolor</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>clientID</td>
+													<td>clientID:JavaUI:version=9.6:84b3e206-fa9b-4704-83a0-d089a7e17943</td>
+												</tr>
+																																			<tr>
+													<td>color</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>font.size</td>
+													<td>-1</td>
+												</tr>
+																																			<tr>
+													<td>WinTitle</td>
+													<td>adb:Android SDK built for x86</td>
+												</tr>
+																																			<tr>
+													<td>dtime</td>
+													<td>00:21:41</td>
+												</tr>
+																																			<tr>
+													<td>click</td>
+													<td>1046,967</td>
+												</tr>
+																																			<tr>
+													<td>bcolor.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>port</td>
+													<td>8889</td>
+												</tr>
+																																			<tr>
+													<td>report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>width</td>
+													<td>653</td>
+												</tr>
+																																			<tr>
+													<td>step</td>
+													<td>11</td>
+												</tr>
+																																			<tr>
+													<td>step.index</td>
+													<td>11</td>
+												</tr>
+																																			<tr>
+													<td>time</td>
+													<td>4975</td>
+												</tr>
+																																			<tr>
+													<td>text</td>
+													<td>APP-ABCDEFGHIJ</td>
+												</tr>
+																																			<tr>
+													<td>position</td>
+													<td>720,915</td>
+												</tr>
+																																			<tr>
+													<td>time (ms)</td>
+													<td>4975</td>
+												</tr>
+																																			<tr>
+													<td>scenarioIndex</td>
+													<td>10</td>
+												</tr>
+																																			<tr>
+													<td>status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>color.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>height</td>
+													<td>104</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="12">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Get text from element WEB:xpath=//*[@nodeName='DIV' and @id='serialLabel' and @hidden='false' and @onScreen='true'][0]</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+								<div class='panel-body'>
+									<div>Total Time: 2.17 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														<div class="panel panel-default">
+																	<div class="panel-heading">Result Data</div>
+									<div class="panel-body">12345-67890-12</div>
+															</div>
+														
+							
+							
+								
+								
+								
+												</div>
+
+												<div class='sub-results'>
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>logLine</td>
+													<td>Get text from element WEB:xpath=//*[@nodeName='DIV' and @id='serialLabel' and @hidden='false' and @onScreen='true'][0]</td>
+												</tr>
+																																			<tr>
+													<td>bcolor</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>clientID</td>
+													<td>clientID:JavaUI:version=9.6:84b3e206-fa9b-4704-83a0-d089a7e17943</td>
+												</tr>
+																																			<tr>
+													<td>color</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>font.size</td>
+													<td>-1</td>
+												</tr>
+																																			<tr>
+													<td>WinTitle</td>
+													<td>adb:Android SDK built for x86</td>
+												</tr>
+																																			<tr>
+													<td>dtime</td>
+													<td>00:21:43</td>
+												</tr>
+																																			<tr>
+													<td>click</td>
+													<td>1046,1072</td>
+												</tr>
+																																			<tr>
+													<td>bcolor.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>port</td>
+													<td>8889</td>
+												</tr>
+																																			<tr>
+													<td>report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>width</td>
+													<td>653</td>
+												</tr>
+																																			<tr>
+													<td>step</td>
+													<td>12</td>
+												</tr>
+																																			<tr>
+													<td>step.index</td>
+													<td>12</td>
+												</tr>
+																																			<tr>
+													<td>time</td>
+													<td>2170</td>
+												</tr>
+																																			<tr>
+													<td>text</td>
+													<td>12345-67890-12</td>
+												</tr>
+																																			<tr>
+													<td>position</td>
+													<td>720,1020</td>
+												</tr>
+																																			<tr>
+													<td>time (ms)</td>
+													<td>2170</td>
+												</tr>
+																																			<tr>
+													<td>scenarioIndex</td>
+													<td>11</td>
+												</tr>
+																																			<tr>
+													<td>status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>color.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>height</td>
+													<td>104</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="13">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Click 'xpath=//*[@nodeName='SPAN' and contains(@class,'button-clear button-large') and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+								<div class='panel-body'>
+									<div>Total Time: 2.108 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														
+							
+							
+								
+								
+								
+												</div>
+
+												<div class='sub-results'>
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>logLine</td>
+													<td>Click 'xpath=//*[@nodeName='SPAN' and contains(@class,'button-clear button-large') and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1</td>
+												</tr>
+																																			<tr>
+													<td>bcolor</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>clientID</td>
+													<td>clientID:JavaUI:version=9.6:84b3e206-fa9b-4704-83a0-d089a7e17943</td>
+												</tr>
+																																			<tr>
+													<td>color</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>font.size</td>
+													<td>-1</td>
+												</tr>
+																																			<tr>
+													<td>WinTitle</td>
+													<td>adb:Android SDK built for x86</td>
+												</tr>
+																																			<tr>
+													<td>dtime</td>
+													<td>00:21:46</td>
+												</tr>
+																																			<tr>
+													<td>click</td>
+													<td>1320,187</td>
+												</tr>
+																																			<tr>
+													<td>bcolor.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>port</td>
+													<td>8889</td>
+												</tr>
+																																			<tr>
+													<td>report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>width</td>
+													<td>237</td>
+												</tr>
+																																			<tr>
+													<td>step</td>
+													<td>13</td>
+												</tr>
+																																			<tr>
+													<td>step.index</td>
+													<td>13</td>
+												</tr>
+																																			<tr>
+													<td>time</td>
+													<td>2108</td>
+												</tr>
+																																			<tr>
+													<td>position</td>
+													<td>1202,84</td>
+												</tr>
+																																			<tr>
+													<td>time (ms)</td>
+													<td>2108</td>
+												</tr>
+																																			<tr>
+													<td>scenarioIndex</td>
+													<td>12</td>
+												</tr>
+																																			<tr>
+													<td>status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>color.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>height</td>
+													<td>206</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="14">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">End Test</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+								<div class='panel-body'>
+									<div>Total Time: 0.174 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														
+							
+							
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Screenshot
+																				<a class="btn btn-default btn-xs pull-right dump-link" href="images/0.PNG" target="_blank">open</a>
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/0.PNG' target="_blank" >
+												<img src='images/0.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+								
+								
+												</div>
+
+												<div class='sub-results'>
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>img.height</td>
+													<td>2560</td>
+												</tr>
+																																			<tr>
+													<td>logLine</td>
+													<td>End Test</td>
+												</tr>
+																																			<tr>
+													<td>clientID</td>
+													<td>clientID:JavaUI:version=9.6:84b3e206-fa9b-4704-83a0-d089a7e17943</td>
+												</tr>
+																																			<tr>
+													<td>WinTitle</td>
+													<td>adb:Android SDK built for x86</td>
+												</tr>
+																																			<tr>
+													<td>dtime</td>
+													<td>00:21:48</td>
+												</tr>
+																																			<tr>
+													<td>appBounds</td>
+													<td>0,0,2560,1440</td>
+												</tr>
+																																			<tr>
+													<td>img.width</td>
+													<td>1440</td>
+												</tr>
+																																			<tr>
+													<td>screen.height</td>
+													<td>2560</td>
+												</tr>
+																																			<tr>
+													<td>found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>outFile</td>
+													<td>C:\Users\Usha\seetest-reports\test8\images\0.PNG</td>
+												</tr>
+																																			<tr>
+													<td>port</td>
+													<td>8889</td>
+												</tr>
+																																			<tr>
+													<td>screen.width</td>
+													<td>1440</td>
+												</tr>
+																																			<tr>
+													<td>report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>step</td>
+													<td>14</td>
+												</tr>
+																																			<tr>
+													<td>step.index</td>
+													<td>14</td>
+												</tr>
+																																			<tr>
+													<td>time</td>
+													<td>174</td>
+												</tr>
+																																			<tr>
+													<td>time (ms)</td>
+													<td>174</td>
+												</tr>
+																																			<tr>
+													<td>scenarioIndex</td>
+													<td>13</td>
+												</tr>
+																																			<tr>
+													<td>status</td>
+													<td>true</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+			</div>
+		</div>
+	</body>
+</html>

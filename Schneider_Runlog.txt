@@ -1,0 +1,68 @@
+12:20:40 AM	Set device to: adb:Android SDK built for x86
+
+12:20:40 AM	Device Information
+Name: Android SDK built for x86
+S/N: emulator-5554
+OS: Android
+Manufacture: unknown
+Model: Android SDK built for x86
+Version: 6.0
+Screen size: 1440x2560
+Connected to: 127.0.0.1:5037
+
+12:20:51 AM	Launch native activity / URL com.schneiderelectric.qatest/.MainActivity
+
+12:21:02 AM	Wait for 'xpath=//*[@id='submit' and @text=' Login ' and @hidden='false' and @onScreen='true']' in zone WEB, timeout: 10000
+
+12:21:02 AM	Found: true
+
+12:21:04 AM	Send text demo@demo.com to element WEB:xpath=//*[@id='username' and @name='email' and @hidden='false' and @onScreen='true'][0]
+
+12:21:06 AM	Send text demo to element WEB:xpath=//*[@id='password' and @name='password' and @hidden='false' and @onScreen='true'][0]
+
+12:21:08 AM	Click 'xpath=//*[@id='submit' and @text=' Login ' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1
+
+12:21:31 AM	Wait for 'xpath=//*[@nodeName='H3' and @text=' Welcome home! ' and @hidden='false' and @onScreen='true']' in zone WEB, timeout: 10000
+
+12:21:31 AM	Found: true
+
+12:21:32 AM	Click 'xpath=//*[@nodeName='SPAN' and @css='SPAN.left-buttons' and @class='left-buttons' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1
+
+12:21:36 AM	Click 'xpath=//*[@nodeName='A' and @text='  About  ' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1
+
+12:21:41 AM	Get text from element WEB:xpath=//*[@nodeName='DIV' and @id='refLabel' and @hidden='false' and @onScreen='true'][0]
+
+12:21:41 AM	APP-ABCDEFGHIJ
+
+12:21:43 AM	Get text from element WEB:xpath=//*[@nodeName='DIV' and @id='serialLabel' and @hidden='false' and @onScreen='true'][0]
+
+12:21:43 AM	12345-67890-12
+
+12:21:46 AM	Click 'xpath=//*[@nodeName='SPAN' and contains(@class,'button-clear button-large') and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1
+
+12:24:16 AM	Set device to: adb:Android SDK built for x86
+
+12:24:16 AM	Device Information
+Name: Android SDK built for x86
+S/N: emulator-5554
+OS: Android
+Manufacture: unknown
+Model: Android SDK built for x86
+Version: 6.0
+Screen size: 1440x2560
+Connected to: 127.0.0.1:5037
+
+12:24:16 AM	Wait for 'xpath=//*[@nodeName='H3' and @text=' Welcome home! ' and @hidden='false' and @onScreen='true']' in zone WEB, timeout: 10000
+
+12:24:16 AM	Found: true
+
+12:24:18 AM	Click 'xpath=//*[@nodeName='SPAN' and @css='SPAN.left-buttons' and @class='left-buttons' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1
+
+12:24:21 AM	Click 'xpath=//*[@nodeName='H5' and @class='user-email ellipsis' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1
+
+12:24:24 AM	Click 'xpath=//*[@nodeName='A' and @text='  Logout  ' and @hidden='false' and @onScreen='true']' in zone WEB, index: 0, click count: 1
+
+12:24:27 AM	Wait for 'xpath=//*[@id='submit' and @text=' Login ' and @hidden='false' and @onScreen='true']' in zone WEB, timeout: 10000
+
+12:24:27 AM	Found: true
+
